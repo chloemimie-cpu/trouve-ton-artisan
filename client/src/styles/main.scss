@@ -1,0 +1,300 @@
+// ============================================================
+// Trouve ton artisan : styles du site
+// Bootstrap (personnalisé avec nos couleurs) + styles propres
+// ============================================================
+
+// ------------------------------------------------------------
+// 1. Variables
+//    Les couleurs viennent de la maquette : à remplacer par la
+//    palette officielle de la Région si elle est différente.
+// ------------------------------------------------------------
+$bleu: #00497c;
+$fond-clair: #f1f8fc;
+$texte: #1b1b1b;
+$erreur: #b02a37;
+
+// Les fonctions de Bootstrap doivent être chargées avant nos réglages
+@import 'bootstrap/scss/functions';
+
+// ------------------------------------------------------------
+// 2. Réglages de Bootstrap (remplacent ses valeurs par défaut)
+// ------------------------------------------------------------
+$primary: $bleu;
+$body-color: $texte;
+$body-bg: #fff;
+$link-color: $bleu;
+$headings-color: $bleu;
+// Police imposée par la charte : Graphik (puis polices de secours)
+$font-family-sans-serif: 'Graphik', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, sans-serif;
+
+// ------------------------------------------------------------
+// 3. Bootstrap complet
+// ------------------------------------------------------------
+@import 'bootstrap/scss/bootstrap';
+
+// ------------------------------------------------------------
+// 4. Accessibilité
+// ------------------------------------------------------------
+
+// Contour bien visible au clavier
+:focus-visible {
+  outline: 3px solid $texte;
+  outline-offset: 2px;
+}
+
+// Lien d'évitement : caché jusqu'à ce qu'on le sélectionne au clavier
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1100;
+  padding: 0.75rem 1rem;
+  background: $bleu;
+  color: #fff;
+
+  &:focus {
+    left: 0;
+  }
+}
+
+main:focus {
+  outline: none;
+}
+
+// Messages d'erreur des formulaires : toujours visibles et lisibles
+.invalid-feedback {
+  display: block;
+  color: $erreur;
+  font-size: 0.95rem;
+}
+
+// Pas d'animation pour les personnes qui les ont désactivées
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+// ------------------------------------------------------------
+// 5. Mise en page générale
+// ------------------------------------------------------------
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+// ------------------------------------------------------------
+// 6. Header
+// ------------------------------------------------------------
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #d5e3ec;
+
+  .navbar-brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    color: $bleu;
+  }
+
+  .brand__titre {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .brand__sous-titre {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .nav-link {
+    color: $texte;
+    font-weight: 500;
+
+    // La page active est soulignée (pas seulement colorée)
+    &.active {
+      color: $bleu;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+    }
+  }
+
+  .form-control {
+    min-width: 14rem;
+  }
+}
+
+// ------------------------------------------------------------
+// 7. Footer
+// ------------------------------------------------------------
+.site-footer {
+  background: $bleu;
+  color: #fff;
+  margin-top: 3rem;
+
+  a {
+    color: #fff;
+
+    &:focus-visible {
+      outline-color: #fff;
+    }
+  }
+
+  address {
+    font-style: normal;
+  }
+}
+
+// ------------------------------------------------------------
+// 8. Accueil
+// ------------------------------------------------------------
+.hero {
+  background: $fond-clair;
+  padding: 3rem 0;
+  text-align: center;
+
+  h1 {
+    font-size: calc(1.5rem + 1.2vw);
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+}
+
+.etape {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.etape__numero {
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: $bleu;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+// ------------------------------------------------------------
+// 9. Notes en étoiles
+// ------------------------------------------------------------
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars__visuel {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  letter-spacing: 0.1em;
+}
+
+.stars__vide {
+  opacity: 0.35;
+}
+
+// Étoiles pleines : recoupées à la largeur de la note
+.stars__plein {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// ------------------------------------------------------------
+// 10. Carte artisan
+// ------------------------------------------------------------
+.artisan-card {
+  position: relative;
+  height: 100%;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1.25rem;
+  background: $bleu;
+  color: #fff;
+  text-align: center;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  }
+
+  // Le contour s'affiche autour de toute la carte quand le lien a le focus
+  &:focus-within {
+    outline: 3px solid $texte;
+    outline-offset: 3px;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .artisan-card__nom {
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+  }
+}
+
+// ------------------------------------------------------------
+// 11. Fiche artisan
+// ------------------------------------------------------------
+.artisan-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 1rem;
+  background: $fond-clair;
+}
+
+.artisan-photo--vide {
+  display: grid;
+  place-items: center;
+  color: $bleu;
+}
+
+.fiche__note {
+  color: $bleu;
+  font-size: 1.25rem;
+}
+
+.fiche__infos {
+  margin: 0;
+
+  dt {
+    font-weight: 700;
+  }
+
+  dd {
+    margin-bottom: 0.75rem;
+  }
+}
