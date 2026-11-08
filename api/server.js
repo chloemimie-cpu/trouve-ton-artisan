@@ -7,8 +7,17 @@ const sequelize = require('./config/database');
 const routes = require('./routes/api');
 const contactRoutes = require('./routes/contact');
 
+// L'API refuse de démarrer sans l'adresse du site (sinon CORS serait ouvert à tous)
+if (!process.env.CLIENT_URL) {
+  console.error('CLIENT_URL manquante');
+  process.exit(1);
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Derrière le proxy de l'hébergeur : récupère la vraie IP du visiteur
+app.set('trust proxy', 1);
 
 // Sécurité : en-têtes HTTP, CORS limité au front, limitation de requêtes
 app.use(helmet());
