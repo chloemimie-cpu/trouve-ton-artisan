@@ -12,10 +12,13 @@ const sequelize = new Sequelize(
     dialect: 'mysql',
     logging: false,
     // Connexion chiffrée uniquement si DB_SSL=true (cas de la base hébergée)
-    dialectOptions:
-      process.env.DB_SSL === 'true'
+        dialectOptions: {
+      charset: 'utf8mb4',
+      // Connexion chiffrée uniquement si DB_SSL=true (cas de la base hébergée)
+      ...(process.env.DB_SSL === 'true'
         ? { ssl: { minVersion: 'TLSv1.2', rejectUnauthorized: true } }
-        : {},
+        : {}),
+    },
   }
 );
 
